@@ -103,7 +103,8 @@ pub fn start(mut input: Vec<u8>, output: &PathBuf) {
             .find(|i| i.ip() == patch_me)
             .map(|i| i.len())
             .unwrap_or(0);
-        input[offset..offset + len].fill(0x90);
+        input[offset] = 0x75;
+        input[offset + 1] = 0x05;
         std::fs::write(output, &input).unwrap();
     } else {
         eprintln!("Error: Could not find the address to patch. Please report to https://github.com/7ap/internal-studio-patcher/issues");

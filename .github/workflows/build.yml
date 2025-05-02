@@ -25,4 +25,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: stagescan-exe
-          path: target/release/stagescan.exe
+          path: target/release/internal-studio-patcher-reversed.exe

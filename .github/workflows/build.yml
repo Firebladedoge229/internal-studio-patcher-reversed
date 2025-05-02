@@ -18,11 +18,24 @@ jobs:
           profile: minimal
           override: true
 
+      - name: Install Chocolatey
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; `
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
+          iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+      - name: Install UPX using Chocolatey
+        run: choco install upx
+
       - name: Build project
         run: cargo build --release
 
-      - name: Upload .exe artifact
+      - name: Compress Executable with UPX
+        run: |
+          upx --best --lzma target/release/internal-studio-patcher-reversed.exe
+
+      - name: Upload Production Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: stagescan-exe
+          name: internal-studio-patcher-reversed
           path: target/release/internal-studio-patcher-reversed.exe

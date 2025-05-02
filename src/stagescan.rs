@@ -79,10 +79,6 @@ pub fn start(mut input: Vec<u8>, output: &PathBuf) {
         std::process::exit(1);
     });
 
-    if let Err(cert_error) = pe.certificates() {
-        eprintln!("Warning: Failed to extract certificate: {}", cert_error);
-    }
-
     let str_addr = find_this_random_string_that_lets_us_get_internal_studio(&pe, &input)
         .expect("Error: Could not find the string that is searched for to get internal studio.");
     

@@ -111,9 +111,8 @@ pub fn start(input: Vec<u8>, _output: &PathBuf) {
             .map(|i| i.len())
             .unwrap_or(5);
 
-        let surrounding = 3;
-        let start = offset.saturating_sub(surrounding);
-        let end = (offset + len + surrounding).min(input.len());
+        let start = offset.saturating_sub(6);
+        let end = (offset + len + 1).min(input.len());
 
         println!("Patch target virtual address: 0x{:X}", patch_me);
         println!("Offset in file: 0x{:X}", offset);
